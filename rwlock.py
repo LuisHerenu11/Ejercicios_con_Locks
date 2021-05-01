@@ -1,7 +1,7 @@
 """ rwlock.py
     Clase para implementar read-write locks sobre la libreria standard threading.
     rLock: Read Lock, permite multiples accesos concurrentes a operaciones de Lectura (Read)
-    wLock: Write Lock, permite un unico acceso (exclusión mútuo) para Escritura (Write)
+    wLock: Write Lock, permite un unico acceso (exclusión mútua) para Escritura (Write)
     Esto esta implementado con dos MUTEX (instancias threading.Lock) y una variable entera (num_r) que lleva
     la cuenta de la cantidad de Readers bloqueados. Un Lock (num_r_lock) protege el acceso a num_r y solo es
     utlizado por los Readers. El otro Lock (w_lock) es de acceso global y asegura la exclusión mutua de los

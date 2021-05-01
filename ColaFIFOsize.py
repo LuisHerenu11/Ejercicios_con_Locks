@@ -12,7 +12,7 @@ class ColaFIFOsize:
         if len(self.elementos) == self.size:
             self.condition.wait()
         self.elementos.append(dato)
-        self.condition.notify(1)
+        self.condition.notify()
         self.condition.release()
 
     def extraer(self):
@@ -20,7 +20,7 @@ class ColaFIFOsize:
         while len(self.elementos) == 0:
             self.condition.wait()
         elemento = self.elementos.pop(0)
-        self.condition.notify(1)
+        self.condition.notify()
         self.condition.release()
         return elemento
 
