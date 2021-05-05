@@ -1,27 +1,30 @@
 import threading
 
-class ColaFIFOsize:
 
-    def __init__(self, size):
+class ColaFIFOsizeMyVersion:
+
+    def __init__(self,tamanio):
         self.elementos = []
-        self.size = size
-        self.condition = threading.Condition()
+        self.tamanio = tamanio
+        self.condicion = threading.Condition()
 
     def insertar(self, dato):
-        self.condition.acquire()
-        if len(self.elementos) == self.size:
-            self.condition.wait()
+        self.condicion.acquire() # adquiere
+        if len(self.elementos) == self.tamanio:
+            # debe esperar que haya un espacio para insertar.
+            self.condicion.wait()
         self.elementos.append(dato)
-        self.condition.notify()
-        self.condition.release()
-
+        self.condicion.notify() # notifica
+        self.condicion.release() # libera
+        
     def extraer(self):
-        self.condition.acquire()
+        self.condicion.acquire()
         while len(self.elementos) == 0:
-            self.condition.wait()
+            # debe esperar que haya algo para extraer
+            self.condicion.wait()
         elemento = self.elementos.pop(0)
-        self.condition.notify()
-        self.condition.release()
+        self.condicion.notify() # notifica
+        self.condicion.release() # libera
         return elemento
 
     def ultimo(self):
@@ -38,9 +41,7 @@ class ColaFIFOsize:
 
 
 def main():
-    cola = ColaFIFOsize(6)
-
-    # check if esta_vacia()
+    cola = ColaFIFOsizeMyVersion(6)
 
     print(cola.cola_vacia())
 
@@ -65,3 +66,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
